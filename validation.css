@@ -1,0 +1,65 @@
+/* input[type ="text"]{
+margin: 20px; */
+/* border-radius: 20px; */
+/* color: chocolate;
+outline-color: green;
+}
+input[type ="password"]{
+    margin: 20px;
+    border-radius: 20px;
+    color: chocolate;
+    outline-color: green;
+    }
+input[type ="textarea"]{
+    margin: 20px;
+    border-radius: 20px;
+    color: chocolate;
+    outline-color: green;
+    }
+textarea{
+    margin: 20px;
+    border-radius: 20px;
+    color: chocolate;
+    outline-color: green;
+}
+input[type ="number"]{
+    margin: 20px;
+    border-radius: 20px;
+    color: chocolate;
+    outline-color: green;
+    }
+input[type ="date"]{
+    margin: 20px;
+    border-radius: 20px;
+    color: chocolate;
+    outline-color: green;
+}
+input[type ="email"]{
+    margin: 20px;
+    border-radius: 20px;
+    color: chocolate;
+    outline-color: green;
+    } */
+
+.container{
+    border: 5px dotted royalblue;
+    width: 25%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: 
+    -webkit-gradient(linear, 0 0, 100% 100%, 
+        color-stop(0.5, rgba(255, 255, 255, 0.25)), 
+        color-stop(0.5, rgba(255, 255, 255, 0.5)), 
+        color-stop(1, rgba(255, 255, 255, 0)));
+    background-color: indianred;
+}
+body{
+    color: black;
+    background-color: black;
+  
+}
+
+.error{
+    color: red;
+}

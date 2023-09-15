@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Attribute Validation</title>
+    
+    <!-- JS CDN Link -->
+    
+    <script src=
+"https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js">
+      </script>
+    <script src=
+"https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js">
+      </script>
+    <script src=
+"https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js">
+      </script>
+    <script src="./validate.js"></script>
+
+    <!-- Bootstrap CDN Link -->
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <!-- CSS Link -->
+
+    <link rel="stylesheet" href="./validation.css" >
+
+</head>
+<body>
+    <script>
+        $(document).ready(function(){
+    // Letters only validation
+    jQuery.validator.addMethod("lettersonly", function(value, element) {
+        return this.optional(element) || /^[a-z]+$/i.test(value);
+        }, "Username Should contain Letters only "); 
+
+    // Age Validation 
+
+    $.validator.addMethod("minAge", function(value, element, min) {
+    var today = new Date();
+    var birthDate = new Date(value);
+    var age = today.getFullYear() - birthDate.getFullYear();
+ 
+    if (age > min+1) { return true; }
+ 
+    var m = today.getMonth() - birthDate.getMonth();
+ 
+    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) { age--; }
+ 
+    return age >= min;
+}, "You are not old enough!");
+
+// password alphanumeric validation 
+
+$.validator.addMethod("letters_numbers_special", function(value, element) {
+return this.optional(element) || /^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%&*])[a-zA-Z0-9!@#$%&*]+$/i.test(value);
+
+//(?=.*[a-zA-Z\d].*)[a-zA-Z\d!@#$%&*]
+
+}, "Enter atleast one Upper case ,one @ char, one number");
+
+$(function() {
+$("input[type=submit]").click(function() {
+var atLeastOneChecked = false;
+
+$("input[type=radio]").each(function() {
+    if ($(this).attr("checked") == "checked") {
+        atLeastOneChecked = true;
+    }
+});
+if (!atLeastOneChecked) {
+    $("#checked").text("Check one");
+} else {
+    $("#checked").text("One is checked");
+}
+});
+
+
+
+
+
+});
+
+    $("#loginform").validate({
+      
+        rules : {
+            uname1 : {
+                required : true,
+                minlength : 3,
+                maxlength : 25,
+                lettersonly : true,
+            },
+            psswd1 : {
+                required : true,
+                minlength : 4,
+                maxlength : 25,
+                letters_numbers_special : true,
+            },
+            date1 : {
+                required : true,
+                minAge : 18,
+            },
+            gender : {
+                required : true,
+                atLeastOneChecked : true,
+            },
+            email1 :{
+                email : true,
+                required : true,
+            },
+            cpsswd1 : {
+                required : true,
+                equalTo : "#psswd11",
+            },
+            gender1 : {
+                required : true,
+            },
+            addr1 : {
+                required : true,
+                minlength : 25,
+                maxlength : 500,
+            },
+            phone1 : {
+                required : true,
+                minlength : 10,
+                maxlength : 12,
+            }
+
+
+        },
+        message : {
+            uname1 : {
+                required : "This is a required field, Please fill this out",
+                minlength : "Minimum Length of the user name must be atleast 3 characters",
+                maxlength : "Minimum Length of the user name must be 25 characters only",
+            },
+            psswd1 : {
+                required : "This is a required field please enter a valid password",
+                minlength : "Minimum Length of the password must be atleast 3 characters",
+                maxlength : "Minimum Length of the password must be 8 to 10 characters"
+            },
+            date : {
+                required : "Please enter a valid DATE OF BIRTH"
+            },
+            email1 : {
+                required : "Please enter a valid e-mail address"
+            },
+            addr1 : {
+                required : "Please enter a valid address....",
+                minlength : "Address must contain atleast 25 characters....",
+                maxlength : "Address should not exceed the maximum amount of characters given....."
+
+            }
+
+        }
+    })
+});
+    </script>
+    
+    <div class="container">
+        <form action=""  name="form" id="loginform">
+            <div class="uname">
+                <label for="uname">User Name</label> <br>
+                <input type="text" name="uname1">
+            </div>
+            <div class="psswd">
+                <label for="psswd">Password</label> <br>
+                <input type="password" name="psswd1" id="psswd11">
+            </div>
+            <div class="cpsswd">
+                <label for="">Confirm Password</label> <br>
+                <input type="password" name="cpsswd1" id="cpsswd11">
+            </div>
+            <div class="dob">
+                <label for="date">Date Of Birth</label> <br>
+                <input type="date" name="date1" id="age-verify">
+            </div>
+            <div class="gen">
+                <div class="row">
+                    <label for="gen" class="me-5">Gender :</label> <br>
+                    <br>
+                    <div class="col-4">
+                        Male<input type="radio" id="m1" name="gender1" class="mt-3">
+                    </div><br>
+                    <div class="col-4">
+                        Female<input type="radio" id="f1" name="gender1" class="mt-3">
+                    </div><br>
+                    <div class="col-4">
+                        Others<input type="radio" id="o1" name="gender1" class="mt-3">
+                    </div><br>
+                </div>
+            </div><br>
+            <div class="address">
+                <label for="addr">Address</label><br>
+                <input type="textarea" name="addr1" id="addr1">
+            </div>
+            <div class="ph">
+                <label for="phone">Phone Number</label><br>
+                <input type="number" name="phone1" id="phone1">
+            </div>
+            <div class="email1">
+                <label for="email">E-mail :</label><br>
+                <input type="email" name="email1">
+            </div>
+            <div class="comments">
+                <label for="cmt"> Comments : (optional)</label><br>
+               <textarea name=""  id="" cols="30" rows="2"></textarea>
+            </div>
+            <div class="div">
+                <input type="submit" class="btn btn-primary">
+            </div>
+        
+        </form>
+        
+    </div>
+</body>
+</html>
